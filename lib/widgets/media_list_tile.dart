@@ -14,26 +14,32 @@ class MediaListTile extends StatelessWidget {
   final Constants constantUrl;
 
   double getPaddingLeft() {
-    if (mediaList.mediaType == 'tv') {
+    if (mediaList.mediaType == 'tv' && DateTime.now().compareTo(DateTime.parse(mediaList.releaseDate!)) <= 30) {
+      return 32;
+    }
+    else if (mediaList.mediaType == 'tv') {
       return 58;
     }
-    else if(DateTime.now().compareTo(DateTime.parse(mediaList.releaseDate)) <= 30) {
+    else if(DateTime.now().compareTo(DateTime.parse(mediaList.releaseDate!)) <= 30) {
       return 52;
     }
     else {
-      return 32;
+      return 0;
     }
   }
 
   String badgeChosen() {
-    if (mediaList.mediaType == 'tv') {
-      return mediaList.mediaType;
+    if (mediaList.mediaType == 'tv' && DateTime.now().compareTo(DateTime.parse(mediaList.releaseDate!)) <= 30) {
+      return 'both';
     }
-    else if(DateTime.now().compareTo(DateTime.parse(mediaList.releaseDate)) <= 30) {
+    else if (mediaList.mediaType == 'tv') {
+      return mediaList.mediaType!;
+    }
+    else if(DateTime.now().compareTo(DateTime.parse(mediaList.releaseDate!)) <= 30) {
       return 'recent';
     }
     else {
-      return 'both';
+      return 'none';
     }
   }
 
@@ -51,16 +57,12 @@ class MediaListTile extends StatelessWidget {
                   "${constantUrl.posterImageUrl}${mediaList.posterPath}",
                   height: 80,
                   width: 120,
-                  fit: BoxFit.fill,
+                  fit: BoxFit.cover,
                 ),
               ),
             ),
             Padding(
-              // "${DateTime.now().compareTo(DateTime.parse( mediaList.releaseDate))}"
               padding: EdgeInsets.only(top: 64, left: getPaddingLeft()),
-              //top: 64, left: 32
-              // Purple: left: 52
-              // Red: 58
               child: ThumbnailBadge(mediaList: mediaList, constantUrl: constantUrl, badgeType: badgeChosen(),),
             ),
           ],
@@ -79,7 +81,7 @@ class MediaListTile extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: EdgeInsets.only(),
+          padding: EdgeInsets.only(left: 10),
           child: IconButton(
             onPressed: () {
               ScaffoldMessenger.of(context).showSnackBar(
@@ -96,7 +98,7 @@ class MediaListTile extends StatelessWidget {
             icon: Icon(
               Icons.play_circle_outline,
               color: Colors.white,
-              size: 60,
+              size: 50,
             ),
           ),
         ),

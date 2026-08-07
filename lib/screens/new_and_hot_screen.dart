@@ -38,26 +38,33 @@ class NewAndHotScreenState extends State<NewAndHotScreen> {
         automaticallyImplyLeading: false,
         centerTitle: true,
         backgroundColor: Colors.black,
-        title: Padding(
-          padding: EdgeInsets.only(right: 150),
-          child: Text(
-            "Recommended TV Show & Movies",
-            style: TextStyle(color: Colors.white, fontSize: 20),
-          ),
+        title: LayoutBuilder(
+          builder: ((context, constraints) {
+            return Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                padding: EdgeInsets.only(left: (constraints.maxWidth /2) - 200),
+                child: Text(
+                  "Recommended TV Show & Movies",
+                  style: TextStyle(color: Colors.white, fontSize: 20),
+                ),
+              ),
+            );
+          }),
         ),
         actions: <Widget>[
           FilledButton(
-              style: ButtonStyle(
-                backgroundColor: WidgetStateProperty.all<Color>(Colors.amber),
-              ),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ReccommendedScreen()),
-                );
-              },
-              child: Text("N"),
-           ),
+            style: ButtonStyle(
+              backgroundColor: WidgetStateProperty.all<Color>(Colors.amber),
+            ),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ReccommendedScreen()),
+              );
+            },
+            child: Text("N"),
+          ),
         ],
       ),
       body: LayoutBuilder(

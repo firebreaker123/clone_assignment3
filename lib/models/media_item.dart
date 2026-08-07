@@ -25,7 +25,7 @@ class MediaItem {
       backdropPath: json['backdrop_path'],
       overview: json['overview'],
       releaseDate: (json['release_date'] != null) ? json['release_date'] : json['first_air_date'],
-      mediaType: json['media_type'],
+      mediaType: (json['media_type'] != null) ? json['media_type'] : 'movie',
     );
   }
 
