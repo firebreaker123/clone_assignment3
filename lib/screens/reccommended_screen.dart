@@ -163,7 +163,7 @@ class ReccommendedScreenState extends State<ReccommendedScreen> {
                   },
                 ),
               ),
-              MediaCard(constantUrl: constant, mediaList: mediaTrendingList[0]),
+              MediaCard(constantUrl: constant, mediaList: mediaTrendingList[0], dateBool: tabs['Coming Soon']!,),
             ],
           );
         },

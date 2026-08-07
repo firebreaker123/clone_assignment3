@@ -29,13 +29,13 @@ class MediaListTile extends StatelessWidget {
   }
 
   String badgeChosen() {
-    if (mediaList.mediaType == 'tv' && DateTime.now().compareTo(DateTime.parse(mediaList.releaseDate!)) <= 30) {
+    if (mediaList.mediaType == 'tv' && DateTime.now().compareTo(DateTime.parse(mediaList.releaseDate)) <= 30) {
       return 'both';
     }
     else if (mediaList.mediaType == 'tv') {
       return mediaList.mediaType!;
     }
-    else if(DateTime.now().compareTo(DateTime.parse(mediaList.releaseDate!)) <= 30) {
+    else if(DateTime.now().compareTo(DateTime.parse(mediaList.releaseDate)) <= 30) {
       return 'recent';
     }
     else {

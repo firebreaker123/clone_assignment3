@@ -6,11 +6,31 @@ class MediaCard extends StatelessWidget {
   const MediaCard({
     required this.mediaList,
     required this.constantUrl,
+    required this.dateBool,
     super.key,
   });
 
   final MediaItem mediaList;
   final Constants constantUrl;
+  final bool dateBool;
+
+  String getMonth(int monthNum) {
+    return switch (monthNum) {
+      1 => 'January',
+      2 => "February",
+      3 => 'March',
+      4 => 'April',
+      5 => 'May',
+      6 => 'June',
+      7 => 'July',
+      8 => "August",
+      9 => "September",
+      10 => "October",
+      11 => "November",
+      12 => "December",
+      _ => "Never released",
+    };
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +40,11 @@ class MediaCard extends StatelessWidget {
           children: [
             Padding(
               padding: EdgeInsets.only(left: 15, right: 15, top: 15),
-              child: Image.network(
-                "${constantUrl.backdropImageUrl}${mediaList.backdropPath}",
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(15),
+                child: Image.network(
+                  "${constantUrl.backdropImageUrl}${mediaList.backdropPath}",
+                ),
               ),
             ),
             Padding(
@@ -39,7 +62,7 @@ class MediaCard extends StatelessWidget {
           ],
         ),
         Padding(
-          padding: EdgeInsets.only(right: 150),
+          padding: EdgeInsets.only(right: 190),
           child: SizedBox(
             width: 270,
             child: Text(
@@ -49,9 +72,21 @@ class MediaCard extends StatelessWidget {
                 fontSize: 30,
                 fontWeight: FontWeight.bold,
               ),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
             ),
           ),
         ),
+        (dateBool)
+            ? Padding(
+                padding: EdgeInsets.only(right: 410),
+                child: Text(
+                  "${getMonth(DateTime.parse(mediaList.releaseDate).month)} ${DateTime.parse(mediaList.releaseDate).day}",
+                  style: TextStyle(color: Colors.white, fontSize: 15),
+                ),
+              )
+            : SizedBox(height: 0, width: 0),
+        
       ],
     );
   }
