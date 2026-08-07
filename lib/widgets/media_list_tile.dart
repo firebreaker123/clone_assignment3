@@ -14,13 +14,13 @@ class MediaListTile extends StatelessWidget {
   final Constants constantUrl;
 
   double getPaddingLeft() {
-    if (mediaList.mediaType == 'tv' && DateTime.now().compareTo(DateTime.parse(mediaList.releaseDate!)) <= 30) {
+    if (mediaList.mediaType == 'tv' && DateTime.now().compareTo(DateTime.parse(mediaList.releaseDate)) <= 30) {
       return 32;
     }
     else if (mediaList.mediaType == 'tv') {
       return 58;
     }
-    else if(DateTime.now().compareTo(DateTime.parse(mediaList.releaseDate!)) <= 30) {
+    else if(DateTime.now().compareTo(DateTime.parse(mediaList.releaseDate)) <= 30) {
       return 52;
     }
     else {
@@ -33,7 +33,7 @@ class MediaListTile extends StatelessWidget {
       return 'both';
     }
     else if (mediaList.mediaType == 'tv') {
-      return mediaList.mediaType!;
+      return mediaList.mediaType;
     }
     else if(DateTime.now().compareTo(DateTime.parse(mediaList.releaseDate)) <= 30) {
       return 'recent';
