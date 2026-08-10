@@ -9,7 +9,7 @@ class ReccommendedScreen extends StatefulWidget {
 
   @override
   State<ReccommendedScreen> createState() => ReccommendedScreenState();
-}
+} //NewAndHotScreen
 
 class ReccommendedScreenState extends State<ReccommendedScreen> {
   final ReccommendedScreen reccommendedScreen = ReccommendedScreen();
@@ -55,7 +55,7 @@ class ReccommendedScreenState extends State<ReccommendedScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 155, 155, 155),
+      backgroundColor: const Color.fromARGB(255, 0, 0, 0),
       appBar: AppBar(
         automaticallyImplyActions: false,
         automaticallyImplyLeading: false,
@@ -122,7 +122,6 @@ class ReccommendedScreenState extends State<ReccommendedScreen> {
                           selectTab(netflixTabs[index]);
                         },
                         child: Container(
-                          //constraints: BoxConstraints(minHeight: 10, maxHeight: 100),
                           decoration: BoxDecoration(
                             border: Border.all(
                               width: 1,
@@ -163,7 +162,31 @@ class ReccommendedScreenState extends State<ReccommendedScreen> {
                   },
                 ),
               ),
-              MediaCard(constantUrl: constant, mediaList: mediaTrendingList[0], dateBool: tabs['Coming Soon']!,),
+              LayoutBuilder(
+                builder: (context, constraints) {
+                  return SizedBox(
+                    height: 800,
+                    child: ListView.builder(
+                      padding: EdgeInsets.only(
+                        left: constraints.maxWidth / 2 - 244,
+                        top: 10,
+                      ),
+                      itemCount: (tabs['Coming Soon']!)
+                          ? mediaUpcomingList.length
+                          : mediaTrendingList.length,
+                      itemBuilder: (context, index) {
+                        return MediaCard(
+                          constantUrl: constant,
+                          mediaList: (tabs['Coming Soon']!)
+                              ? mediaUpcomingList[index]
+                              : mediaTrendingList[index],
+                          dateBool: tabs['Coming Soon']!,
+                        );
+                      },
+                    ),
+                  );
+                },
+              ),
             ],
           );
         },

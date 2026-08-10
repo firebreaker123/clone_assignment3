@@ -86,7 +86,63 @@ class MediaCard extends StatelessWidget {
                 ),
               )
             : SizedBox(height: 0, width: 0),
-        
+        Padding(
+          padding: EdgeInsets.only(top: 4, left: 15, right: 10),
+          child: Text(
+            mediaList.overview,
+            maxLines: 3,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+              color: const Color.fromARGB(255, 201, 201, 201),
+              fontSize: 15,
+            ),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(right: 280, top: 5),
+          child: SizedBox(
+            width: 180,
+            child: FilledButton(
+              style: FilledButton.styleFrom(
+                backgroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5),
+                ),
+              ),
+              onPressed: () {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      "Reminded",
+                      style: TextStyle(
+                        color: const Color.fromARGB(255, 0, 0, 0),
+                        fontSize: 20,
+                      ),
+                    ),
+                    backgroundColor: const Color.fromARGB(255, 96, 127, 141),
+                    duration: Duration(seconds: 1),
+                  ),
+                );
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(right: 5, top: 10, bottom: 10),
+                    child: Icon(Icons.doorbell, color: Colors.black, size: 20),
+                  ),
+                  Text(
+                    "Remind Me",
+                    style: TextStyle(
+                      color: const Color.fromARGB(255, 0, 0, 0),
+                      fontSize: 20,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
       ],
     );
   }
