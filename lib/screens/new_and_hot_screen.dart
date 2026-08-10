@@ -10,13 +10,14 @@ class NewAndHotScreen extends StatefulWidget {
 
   @override
   State<NewAndHotScreen> createState() => NewAndHotScreenState();
-}
+} //ReccommendedScreen
 
 class NewAndHotScreenState extends State<NewAndHotScreen> {
   final NewAndHotScreen newHotScreen = NewAndHotScreen();
 
   List<MediaItem> mediaList = [];
   final Constants constant = Constants();
+  bool isLoading = true;
 
   @override
   void initState() {
@@ -25,8 +26,16 @@ class NewAndHotScreenState extends State<NewAndHotScreen> {
   }
 
   Future<void> loadMedia() async {
+    setState(() {
+      isLoading = true;
+    });
+
     mediaList = await TmdbService().fetchTrending();
     setState(() {});
+
+    setState(() {
+      isLoading = false;
+    });
   }
 
   @override
@@ -43,7 +52,9 @@ class NewAndHotScreenState extends State<NewAndHotScreen> {
             return Align(
               alignment: Alignment.centerLeft,
               child: Padding(
-                padding: EdgeInsets.only(left: (constraints.maxWidth /2) - 200),
+                padding: EdgeInsets.only(
+                  left: (constraints.maxWidth / 2) - 200,
+                ),
                 child: Text(
                   "Recommended TV Show & Movies",
                   style: TextStyle(color: Colors.white, fontSize: 20),
@@ -67,105 +78,40 @@ class NewAndHotScreenState extends State<NewAndHotScreen> {
           ),
         ],
       ),
-      body: LayoutBuilder(
-        builder: ((context, constraints) {
-          return ListView.builder(
-            itemCount: mediaList.length,
-            itemBuilder: ((context, index) {
-              return Padding(
-                padding: EdgeInsets.only(
-                  bottom: 10,
-                  left: constraints.maxWidth / 2 - 246,
+      body: (isLoading)
+          ? Center(
+              child: Padding(
+                padding: EdgeInsets.only(bottom: 120),
+                child: SizedBox(
+                  height: 60,
+                  width: 60,
+                  child: CircularProgressIndicator(
+                    backgroundColor: const Color.fromARGB(255, 187, 168, 211),
+                    color: const Color.fromARGB(255, 128, 170, 236),
+                    strokeWidth: 16,
+                  ),
                 ),
-                child: MediaListTile(
-                  mediaList: mediaList[index],
-                  constantUrl: constant,
-                ),
-              );
-            }),
-          );
-        }),
-      ),
-    );
-  }
-}
-
-/* LayoutBuilder(
-                      builder: (context, constraints) {
-                        return Column(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(
-                                top: 40,
-                                left: (constraints.maxWidth / 2) - 213.5,
-                              ),*/
-/*  AspectRatio(
-      aspectRatio: 16 / 9,R
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(16),
-        child: GestureDetector(
-          onTap: () {
-            var cardSnack = SnackBar(
-              content: Text(cardDate, style: TextStyle(color: Colors.white)),
-              backgroundColor: Color.fromARGB(255, 42, 0, 110),
-              duration: Duration(seconds: 1),
-            );
-            ScaffoldMessenger.of(context).showSnackBar(cardSnack);
-          },
-          child: Stack(
-            children: [
-              Image.asset(
-                imageFile,
-                fit: BoxFit.cover,
-                width: double.infinity,
               ),
-              DateBadge(date: cardDate),
-            ],*/
-
-
-
-/* class TodoScreen extends StatefulWidget {
-  const TodoScreen({super.key});
-
-  @override
-  State<TodoScreen> createState() => TodoScreenState();
-}
-
-class TodoScreenState extends State<TodoScreen> {
-  final TodoViewModel todoViewModel = TodoViewModel();*/
-
-
-
-
-
-/*class NewAndHotScreen extends StatelessWidget {
-
-   NewAndHotScreen({super.key});
-
-  late final test = TmdbService().fetchTrending();
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: FutureBuilder(
-        future: test,
-        builder: ((context, snapshot) {
-          if (snapshot.hasData) {
-            return ListView.builder(
-              itemCount: snapshot.data!.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text((snapshot.data![index].releaseDate)),
+            )
+          : LayoutBuilder(
+              builder: ((context, constraints) {
+                return ListView.builder(
+                  itemCount: mediaList.length,
+                  itemBuilder: ((context, index) {
+                    return Padding(
+                      padding: EdgeInsets.only(
+                        bottom: 10,
+                        left: constraints.maxWidth / 2 - 246,
+                      ),
+                      child: MediaListTile(
+                        mediaList: mediaList[index],
+                        constantUrl: constant,
+                      ),
+                    );
+                  }),
                 );
-              },
-            );
-          } else if (snapshot.hasError) {
-            return Text('${snapshot.error}');
-          }
-
-          return const CircularProgressIndicator();
-        }),
-      ),
+              }),
+            ),
     );
   }
-} */
+}

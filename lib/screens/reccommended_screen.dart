@@ -24,6 +24,7 @@ class ReccommendedScreenState extends State<ReccommendedScreen> {
       size: 20,
     ),
   ];
+  bool isLoading = true;
 
   List<MediaItem> mediaUpcomingList = [];
   List<MediaItem> mediaTrendingList = [];
@@ -39,9 +40,15 @@ class ReccommendedScreenState extends State<ReccommendedScreen> {
   }
 
   Future<void> loadMedia() async {
+    setState(() {
+      isLoading = true;
+    });
     mediaUpcomingList = await TmdbService().fetchUpcoming();
     mediaTrendingList = await TmdbService().fetchTrending();
-    setState(() {});
+
+    setState(() {
+      isLoading = false;
+    });
   }
 
   void selectTab(String newTab) {
@@ -101,96 +108,111 @@ class ReccommendedScreenState extends State<ReccommendedScreen> {
           ),
         ],
       ),
-      body: LayoutBuilder(
-        builder: (context, constraints) {
-          return Column(
-            children: [
-              SizedBox(
-                height: 58,
-                child: ListView.builder(
-                  padding: EdgeInsets.only(
-                    top: 15,
-                    left: (constraints.maxWidth / 2) - 230,
+      body: (isLoading)
+          ? Center(
+              child: Padding(
+                padding: EdgeInsets.only(bottom: 120),
+                child: SizedBox(
+                  height: 60,
+                  width: 60,
+                  child: CircularProgressIndicator(
+                    backgroundColor: const Color.fromARGB(255, 187, 168, 211),
+                    color: const Color.fromARGB(255, 128, 170, 236),
+                    strokeWidth: 16,
                   ),
-                  scrollDirection: Axis.horizontal,
-                  itemCount: netflixTabs.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: EdgeInsets.only(right: 10),
-                      child: GestureDetector(
-                        onTap: () {
-                          selectTab(netflixTabs[index]);
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              width: 1,
-                              color: Color.fromARGB(255, 173, 173, 173),
-                            ),
-                            color: (tabs[netflixTabs[index]]!)
-                                ? Color.fromARGB(255, 122, 122, 122)
-                                : Color.fromARGB(255, 0, 0, 0),
-                            borderRadius: BorderRadius.circular(26),
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                              left: 10,
-                              right: 10,
-                              top: 10,
-                              bottom: 10,
-                            ),
-                            child: Row(
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.only(right: 5),
-                                  child: tabIconsList[index],
-                                ),
-                                Text(
-                                  netflixTabs[index],
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    );
-                  },
                 ),
               ),
-              LayoutBuilder(
-                builder: (context, constraints) {
-                  return SizedBox(
-                    height: 800,
-                    child: ListView.builder(
-                      padding: EdgeInsets.only(
-                        left: constraints.maxWidth / 2 - 244,
-                        top: 10,
+            )
+          : LayoutBuilder(
+              builder: (context, constraints) {
+                return Column(
+                  children: [
+                    SizedBox(
+                      height: 58,
+                      child: ListView.builder(
+                        padding: EdgeInsets.only(
+                          top: 15,
+                          left: (constraints.maxWidth / 2) - 230,
+                        ),
+                        scrollDirection: Axis.horizontal,
+                        itemCount: netflixTabs.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: EdgeInsets.only(right: 10),
+                            child: GestureDetector(
+                              onTap: () {
+                                selectTab(netflixTabs[index]);
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    width: 1,
+                                    color: Color.fromARGB(255, 173, 173, 173),
+                                  ),
+                                  color: (tabs[netflixTabs[index]]!)
+                                      ? Color.fromARGB(255, 122, 122, 122)
+                                      : Color.fromARGB(255, 0, 0, 0),
+                                  borderRadius: BorderRadius.circular(26),
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                    left: 10,
+                                    right: 10,
+                                    top: 10,
+                                    bottom: 10,
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.only(right: 5),
+                                        child: tabIconsList[index],
+                                      ),
+                                      Text(
+                                        netflixTabs[index],
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        },
                       ),
-                      itemCount: (tabs['Coming Soon']!)
-                          ? mediaUpcomingList.length
-                          : mediaTrendingList.length,
-                      itemBuilder: (context, index) {
-                        return MediaCard(
-                          constantUrl: constant,
-                          mediaList: (tabs['Coming Soon']!)
-                              ? mediaUpcomingList[index]
-                              : mediaTrendingList[index],
-                          dateBool: tabs['Coming Soon']!,
+                    ),
+                    LayoutBuilder(
+                      builder: (context, constraints) {
+                        return SizedBox(
+                          height: 800,
+                          child: ListView.builder(
+                            padding: EdgeInsets.only(
+                              left: constraints.maxWidth / 2 - 244,
+                              top: 10,
+                            ),
+                            itemCount: (tabs['Coming Soon']!)
+                                ? mediaUpcomingList.length
+                                : mediaTrendingList.length,
+                            itemBuilder: (context, index) {
+                              return MediaCard(
+                                constantUrl: constant,
+                                mediaList: (tabs['Coming Soon']!)
+                                    ? mediaUpcomingList[index]
+                                    : mediaTrendingList[index],
+                                dateBool: tabs['Coming Soon']!,
+                              );
+                            },
+                          ),
                         );
                       },
                     ),
-                  );
-                },
-              ),
-            ],
-          );
-        },
-      ),
+                  ],
+                );
+              },
+            ),
     );
   }
 }
