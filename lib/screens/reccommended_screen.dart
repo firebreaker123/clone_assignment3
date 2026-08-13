@@ -25,6 +25,8 @@ class ReccommendedScreenState extends State<ReccommendedScreen> {
     ),
   ];
   bool isLoading = true;
+  final ScrollController scrollController = ScrollController();
+  final TmdbService listService = TmdbService();
 
   List<MediaItem> mediaUpcomingList = [];
   List<MediaItem> mediaTrendingList = [];
@@ -36,6 +38,7 @@ class ReccommendedScreenState extends State<ReccommendedScreen> {
     netflixTabs = ['Coming Soon', 'Everyone Watching'];
     tabs = {'Coming Soon': true, 'Everyone Watching': false};
     selectedTabs = 'Coming Soon';
+    scrollController.addListener(printScroll);
     loadMedia();
   }
 
@@ -43,8 +46,8 @@ class ReccommendedScreenState extends State<ReccommendedScreen> {
     setState(() {
       isLoading = true;
     });
-    mediaUpcomingList = await TmdbService().fetchUpcoming();
-    mediaTrendingList = await TmdbService().fetchTrending();
+    mediaUpcomingList = await listService.fetchUpcoming();
+    mediaTrendingList = await listService.fetchTrending();
 
     setState(() {
       isLoading = false;
@@ -57,6 +60,15 @@ class ReccommendedScreenState extends State<ReccommendedScreen> {
       tabs[newTab] = true;
       selectedTabs = newTab;
     });
+  }
+
+  Future<void> printScroll() async {
+    if (scrollController.offset >= scrollController.position.maxScrollExtent) {
+      scrollController.jumpTo(scrollController.position.minScrollExtent);
+      listService.pageNum++;
+      mediaUpcomingList = await listService.fetchUpcoming();
+      mediaTrendingList = await listService.fetchTrending();
+    }
   }
 
   @override
@@ -189,6 +201,7 @@ class ReccommendedScreenState extends State<ReccommendedScreen> {
                         return SizedBox(
                           height: 800,
                           child: ListView.builder(
+                            controller: scrollController,
                             padding: EdgeInsets.only(
                               left: constraints.maxWidth / 2 - 244,
                               top: 10,

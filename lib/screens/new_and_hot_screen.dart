@@ -69,6 +69,7 @@ class NewAndHotScreenState extends State<NewAndHotScreen> {
               backgroundColor: WidgetStateProperty.all<Color>(Colors.amber),
             ),
             onPressed: () {
+              
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => ReccommendedScreen()),

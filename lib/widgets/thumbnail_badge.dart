@@ -61,7 +61,6 @@ class ThumbnailBadge extends StatelessWidget {
           ),
         ],
       ),
-
       _ => SizedBox(height: 0, width: 0),
     };
   }
