@@ -28,7 +28,7 @@ iOS Version
 - Different tabs allowing users to see upcoming movies or trending movies
 
 ## Key Technical Implementations  
-###API Calling  
+### API Calling  
 - Called data from the TMBD database and created a model structure to build and display these data in an infinite scrolling bar
 - Implemented multiple pages and tabs to allow users to see call and see different types of movies like weekly trending or upcoming
 
