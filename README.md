@@ -33,9 +33,9 @@ iOS Version
 - Implemented multiple pages and tabs to allow users to see call and see different types of movies like weekly trending or upcoming
 
 ## Troubleshooting
-## 1. The application did not show next page of data when reaching the end of the screen
+### 1. The application did not show next page of data when reaching the end of the screen
 **Situation**
-- The data wouldn't get the next page of data when reaching the end of the scroll  
+- The data wouldn't get the next page of data when reaching the end of the scroll
 **Root Cause**
 - The scrollcontroller.onset wasn't being properly used and the boolean expression of onset being equalled to the max scrolling position may have been overshot
 **Solution**
