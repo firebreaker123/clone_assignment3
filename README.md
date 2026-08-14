@@ -17,8 +17,12 @@
 
 ### Technology 
 **Language**: Dart
+
 **Framework**: Flutter
+
 **Libraries**: HTTP
+
 **Database**: TMDB
+
 **Tools**: Git, GitHub
     
