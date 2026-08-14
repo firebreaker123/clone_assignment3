@@ -11,14 +11,25 @@
      - 2026.08.03 - 2026.08.13 
 
 ### - Development Environment
-#### iOS Version
-#### Architecture                    MVVM
-#### Reactive Framework              Flutter
+iOS Version
+**Architecture**                    MVVM
+**Reactive**              Flutter
 
-### Technology 
+### Technology Stack & Libraries
 **Language**: Dart  
 **Framework**: Flutter  
 **Libraries**: HTTP  
 **Database**: TMDB  
 **Tools**: Git, GitHub  
-    
+
+## Core Features
+- Track the weekly trending movies and any upcoming movies
+- Displays these movies in an infinite scrolling screen
+- Different tabs allowing users to see upcoming movies or trending movies
+
+## Key Technical Implementations  
+###API Calling  
+- Called data from the TMBD database and created a model structure to build and display these data in an infinite scrolling bar
+- Implemented multiple pages and tabs to allow users to see call and see different types of movies like weekly trending or upcoming
+
+
