@@ -35,9 +35,11 @@ iOS Version
 ## Troubleshooting
 ### 1. The application did not show next page of data when reaching the end of the screen
 **Situation**
-- The data wouldn't get the next page of data when reaching the end of the scroll   
+- The data wouldn't get the next page of data when reaching the end of the scroll
+
 **Root Cause**
-- The scrollcontroller.onset wasn't being properly used and the boolean expression of onset being equalled to the max scrolling position may have been overshot  
+- The scrollcontroller.onset wasn't being properly used and the boolean expression of onset being equalled to the max scrolling position may have been overshot
+
 **Solution**
 - Change the boolean expression from scrollController.offset == scrollController.position.maxScrollExtent to scrollController.offset >= scrollController.position.maxScrollExtent
 
