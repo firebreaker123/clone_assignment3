@@ -16,5 +16,9 @@
 #### Reactive Framework              Flutter
 
 ### Technology 
-***Language***: Dart
+**Language**: Dart
+**Framework**: Flutter
+**Libraries**: HTTP
+**Database**: TMDB
+**Tools**: Git, GitHub
     
