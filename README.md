@@ -6,9 +6,9 @@
 
 ## Project Environment
 ### - Development Team
-     - 1 developer
+- 1 developer
 ### - Development Period: 
-     - 2026.08.03 - 2026.08.13 
+- 2026.08.03 - 2026.08.13 
 
 ### - Development Environment
 iOS Version
