@@ -16,9 +16,7 @@
 #### Reactive Framework              Flutter
 
 ### Technology 
-**Language**: Dart
-
-**Framework**: Flutter
+**Language**: Dart\n**Framework**: Flutter
 
 **Libraries**: HTTP
 
